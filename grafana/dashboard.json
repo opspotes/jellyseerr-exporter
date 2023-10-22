@@ -109,7 +109,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count)",
+          "expr": "sum(jellyseerr_requests_count)",
           "instant": true,
           "interval": "",
           "legendFormat": "Requests",
@@ -175,7 +175,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sort_desc(sum(overseerr_requests_count) by (media_type))",
+          "expr": "sort_desc(sum(jellyseerr_requests_count) by (media_type))",
           "instant": true,
           "interval": "",
           "legendFormat": "{{ media_type }}",
@@ -235,7 +235,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count{request_status=\"Approved\"})",
+          "expr": "sum(jellyseerr_requests_count{request_status=\"Approved\"})",
           "instant": true,
           "interval": "",
           "legendFormat": "Approved ",
@@ -243,7 +243,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count{request_status=\"Pending\"})",
+          "expr": "sum(jellyseerr_requests_count{request_status=\"Pending\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -252,7 +252,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count{request_status=\"Declined\"})",
+          "expr": "sum(jellyseerr_requests_count{request_status=\"Declined\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -312,7 +312,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count{media_status=\"Available\"})",
+          "expr": "sum(jellyseerr_requests_count{media_status=\"Available\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -321,7 +321,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count{media_status=\"Part-Available\"})",
+          "expr": "sum(jellyseerr_requests_count{media_status=\"Part-Available\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -330,7 +330,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(overseerr_requests_count{media_status=\"Processing\"})",
+          "expr": "sum(jellyseerr_requests_count{media_status=\"Processing\"})",
           "hide": false,
           "instant": true,
           "interval": "",
@@ -399,7 +399,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sort_desc(sum(overseerr_requests_count) by (media_type))",
+          "expr": "sort_desc(sum(jellyseerr_requests_count) by (media_type))",
           "instant": true,
           "interval": "",
           "legendFormat": "{{ media_type }}",
@@ -481,7 +481,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sort_desc(sum(overseerr_requests_count) by (is_4k))",
+          "expr": "sort_desc(sum(jellyseerr_requests_count) by (is_4k))",
           "instant": true,
           "interval": "",
           "legendFormat": "{{ media_type }}",
@@ -562,7 +562,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sort_desc(overseerr_user_requests) > 0 ",
+          "expr": "sort_desc(jellyseerr_user_requests) > 0 ",
           "instant": true,
           "interval": "",
           "legendFormat": "{{ email }}",
@@ -636,7 +636,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sort_desc(sum(overseerr_requests_count) by (genre))",
+          "expr": "sort_desc(sum(jellyseerr_requests_count) by (genre))",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -661,7 +661,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Overseerr",
+  "title": "Jellyseerr",
   "uid": "FcKC74CGk",
   "version": 7
 }

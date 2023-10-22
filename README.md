@@ -1,32 +1,26 @@
-# Overseerr Exporter    ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/willfantom/overseerr-exporter?display_name=tag&label=%20&sort=semver)  ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/willfantom/overseerr-exporter/release.yml?label=%20&logo=github)
+# Jellyseerr Exporter
 
-Export media request data from an [Oversseerr](https://overseerr.dev) instance to a [Prometheus](https://prometheus.io) instance.
-
----
+Prometheus exporter for [Jellyseerr](https://github.com/Fallenbagel/jellyseerr).
 
 ## Usage
 
 ```bash
-docker run --rm -p 9850:9850 ghcr.io/willfantom/overseerr-exporter:latest \
-  "--overseerr.address=https://overseerr.example.com" \
-  "--overseerr.api-key=examplesecretapikey"
+docker run --rm -p 9850:9850 ghcr.io/opspotes/jellyseerr-exporter:latest \
+  "--jellyseerr.address=https://jellyseerr.example.com" \
+  "--jellyseerr.api-key=examplesecretapikey"
 ```
-
----
 
 ### Dashboard
 
-![example-dash](./grafana/dashboard.png)
+![example-grafana-dashboard](./grafana/dashboard.png)
 
----
-
-## Exporter Metrics
+## Metrics
 
 Two main metric groups are exported: Requests and Users.
 
-#### Requests
+### Requests
 
-The requests on the Overseerr server are counted. Request counts have the following labels:
+The requests on the Jellyseerr server are counted. Request counts have the following labels:
 
 | Label            |                      Description                       | Configurable |
 | :--------------- | :----------------------------------------------------: | -----------: |
@@ -37,11 +31,11 @@ The requests on the Overseerr server are counted. Request counts have the follow
 | `genre`          |       The main genre for a requested media item        |          yes |
 | `company`        | The production company or network for a requested item |          yes |
 
-> ⚠️  Collecting Genre/Company info can take a lot of time with large request quantities
+> ⚠️ Collecting Genre/Company info can take a lot of time with large request quantities
 
-#### Users
+### Users
 
-User request counts of an Overseerr server are collected with the following labels:
+User request counts of an Jellyseerr server are collected with the following labels:
 
 | Label   |          Description          | Configurable |
 | :------ | :---------------------------: | -----------: |
@@ -54,27 +48,13 @@ User request counts of an Overseerr server are collected with the following labe
 | `log`                |                 Sets the logging level for the exporter                 | `fatal`    |
 | `web.listen-address` |                The address for the exporter to listen on                | `:9850`    |
 | `web.telemetry-path` |                     The path to expose the metrics                      | `/metrics` |
-| `overseerr.address`  |                    The URI of the Overseerr instance                    |            |
-| `overseerr.api-key`  |               The admin API key of the Overseerr instance               |            |
-| `overseerr.locale`   |                  The locale of the Overseerr instance                   | `en`       |
+| `jellyseerr.address` |                   The URI of the Jellyseerr instance                    |            |
+| `jellyseerr.api-key` |              The admin API key of the Jellyseerr instance               |            |
+| `jellyseerr.locale`  |                  The locale of the Jellyseerr instance                  | `en`       |
 | `fullData`           | Do not collect genre and company to reduce API requests and cardinality | `false`    |
 
 You **must** provide the Overseerr address and API key!
 
----
+## Original project
 
-## Build the Container
-
-```bash
-docker build --rm -f Dockerfile \
-  --build-arg EXPORTER_VERSION=local \
-  -t overseerr-exporter:latest .
-```
-
----
-
-### TODO
-
- - Improve dashboard (more graphs!)
- - Export version metrics
- - Include issue counters
+This project is a fork from [`WillFantom/overseerr-exporter`](https://github.com/WillFantom/overseerr-exporter), with some improvements. Thanks a lot to him for this work released under a GPL license.

@@ -38,7 +38,7 @@ func NewRequestCollector(client *goverseerr.Overseerr, fullData bool) *RequestCo
 
 		Count: prometheus.NewDesc(
 			prometheus.BuildFQName(namespace, specificNamespace, "count"),
-			"Number of requests on Overseerr",
+			"Number of requests on Jellyseerr",
 			[]string{"media_type", "is_4k", "request_status", "media_status", "genre", "company"},
 			nil,
 		),
@@ -106,14 +106,14 @@ func (rc *RequestCollector) Collect(ch chan<- prometheus.Metric) {
 	logrus.WithField("time_elapsed", elapsed).Debugln("request data collected")
 }
 
-func fetchAllRequests(overseerr *goverseerr.Overseerr) []*goverseerr.MediaRequest {
+func fetchAllRequests(jellyseerr *goverseerr.Overseerr) []*goverseerr.MediaRequest {
 	var allRequests []*goverseerr.MediaRequest
 	page := 0
 	for {
-		logrus.WithField("page", page).Traceln("fetching request list from overseerr")
-		requests, pageInfo, err := overseerr.GetRequests(page, requestPageSize, goverseerr.RequestFileterAll, goverseerr.RequestSortAdded)
+		logrus.WithField("page", page).Traceln("fetching request list from jellyseerr")
+		requests, pageInfo, err := jellyseerr.GetRequests(page, requestPageSize, goverseerr.RequestFileterAll, goverseerr.RequestSortAdded)
 		if err != nil {
-			logrus.WithField("page", page).Errorln("failed to get page of media requests from overseerr")
+			logrus.WithField("page", page).Errorln("failed to get page of media requests from jellyseerr")
 			return nil
 		}
 		allRequests = append(allRequests, requests...)
@@ -122,6 +122,6 @@ func fetchAllRequests(overseerr *goverseerr.Overseerr) []*goverseerr.MediaReques
 			break
 		}
 	}
-	logrus.WithField("total_requests", len(allRequests)).Traceln("fetched all requests from overseerr")
+	logrus.WithField("total_requests", len(allRequests)).Traceln("fetched all requests from jellyseerr")
 	return allRequests
 }

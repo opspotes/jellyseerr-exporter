@@ -1,5 +1,5 @@
 package collector
 
 const (
-	namespace = "overseerr"
+	namespace = "jellyseerr"
 )

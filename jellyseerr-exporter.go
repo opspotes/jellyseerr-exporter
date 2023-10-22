@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/sirupsen/logrus"
-	"github.com/willfantom/overseerr-exporter/cmd"
+	"github.com/opspotes/jellyseerr-exporter/cmd"
 )
 
 func main() {

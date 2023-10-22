@@ -1,23 +1,15 @@
-FROM golang:1.19-alpine3.17 as builder
+FROM golang:1.21-alpine3.17 as builder
 
 WORKDIR /src
 
-ARG EXPORTER_VERSION=
-RUN test -n "$EXPORTER_VERSION"
-
-COPY ./go.mod ./go.mod
-RUN go mod download
-
 COPY . .
-RUN CGO_ENABLED=0 go build -ldflags "-X github.com/willfantom/overseerr-exporter/cmd.version=${EXPORTER_VERSION}" -o overseerr-exporter .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/jellyseerr-exporter
+RUN update-ca-certificates
 
+# Minimalist image
+FROM scratch
 
-FROM alpine:3.17
+COPY --from=builder /go/bin/jellyseerr-exporter /go/bin/jellyseerr-exporter
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
-RUN apk --no-cache add ca-certificates
-LABEL maintainer="Will Fantom <willf@ntom.dev>"
-
-WORKDIR /exporter
-COPY --from=builder /src/overseerr-exporter .
-
-ENTRYPOINT [ "./overseerr-exporter" ]
+ENTRYPOINT ["/go/bin/jellyseerr-exporter"]
