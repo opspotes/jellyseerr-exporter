@@ -16,8 +16,6 @@ var (
 	logLevel           string
 	jellyseerrAddress   string
 	jellyseerrAPIKey    string
-	listenAddress      string
-	metricsPath        string
 	jellyseerrAPILocale string
 	fullData     bool
 )
@@ -44,19 +42,22 @@ var RootCmd = &cobra.Command{
 		prometheus.MustRegister(collector.NewRequestCollector(jellyseerr, fullData))
 		prometheus.MustRegister(collector.NewUserCollector(jellyseerr))
 
-		handler := promhttp.Handler()
-		http.Handle(metricsPath, handler)
+		// Handle Metrics endpoint
+		promHandler := promhttp.Handler()
+		http.Handle("/metrics", promHandler)
+
+		// Default exporter redirect message on /
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(`<html>
 		<head><title>Jellyseerr Exporter</title></head>
 		<body>
 		<h1>Jellyseerr Exporter</h1>
-		<p><a href="` + metricsPath + `">Metrics</a></p>
+		<p><a href="/metrics">Metrics</a></p>
 		</body>
 		</html>`))
 		})
 
-		if err := http.ListenAndServe(listenAddress, nil); err != nil {
+		if err := http.ListenAndServe(":9850", nil); err != nil {
 			logrus.WithField("err msg", err.Error()).Fatalln("http server failed: exiting")
 		}
 	},
@@ -88,8 +89,4 @@ func init() {
 	RootCmd.PersistentFlags().BoolVar(&fullData, "fullData", false, "Reduce scraping and cardinality on requests count metric.")
 	RootCmd.MarkPersistentFlagRequired("jellyseerr.address")
 	RootCmd.MarkPersistentFlagRequired("jellyseerr.api-key")
-
-	// setup vars (based on ha proxy exporter)
-	RootCmd.PersistentFlags().StringVar(&listenAddress, "web.listen-address", ":9850", "Address to listen on for web interface and telemetry.")
-	RootCmd.PersistentFlags().StringVar(&metricsPath, "web.telemetry-path", "/metrics", "Path under which to expose metrics.")
 }

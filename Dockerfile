@@ -12,4 +12,6 @@ FROM scratch
 COPY --from=builder /go/bin/jellyseerr-exporter /go/bin/jellyseerr-exporter
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
+EXPOSE 9850
+
 ENTRYPOINT ["/go/bin/jellyseerr-exporter"]
