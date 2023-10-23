@@ -3,7 +3,6 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -13,14 +12,14 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 25,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -29,30 +28,32 @@
       },
       "id": 12,
       "panels": [],
-      "title": "Request Counts",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "Requests",
       "type": "row"
     },
     {
-      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "purple",
+            "fixedColor": "dark-blue",
             "mode": "fixed"
           },
-          "displayName": "Requests",
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "No Pending Requests",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "No Pending Requests"
+                }
+              },
+              "type": "value"
             }
           ],
-          "min": 0,
           "noValue": "No Requests Found",
           "thresholds": {
             "mode": "absolute",
@@ -60,22 +61,6 @@
               {
                 "color": "dark-green",
                 "value": null
-              },
-              {
-                "color": "light-green",
-                "value": 1
-              },
-              {
-                "color": "super-light-green",
-                "value": 2
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 3
-              },
-              {
-                "color": "dark-red",
-                "value": 5
               }
             ]
           },
@@ -85,15 +70,15 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 3,
+        "w": 9,
         "x": 0,
         "y": 1
       },
       "id": 2,
       "options": {
-        "colorMode": "background",
+        "colorMode": "none",
         "graphMode": "area",
-        "justifyMode": "center",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -105,62 +90,56 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "10.0.2",
       "targets": [
         {
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(jellyseerr_requests_count)",
-          "instant": true,
+          "format": "time_series",
+          "instant": false,
           "interval": "",
           "legendFormat": "Requests",
+          "range": true,
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "title": "Total Requests",
+      "title": "Total requests",
+      "transparent": true,
       "type": "stat"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "No Requests",
-              "to": "",
-              "type": 1,
-              "value": "0"
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-purple",
-                "value": null
-              }
-            ]
-          }
+          },
+          "mappings": [],
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 3,
+        "h": 21,
+        "w": 14,
+        "x": 10,
         "y": 1
       },
-      "id": 6,
+      "id": 8,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "pieType": "pie",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -168,30 +147,32 @@
           "fields": "",
           "values": false
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "10.0.2",
       "targets": [
         {
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sort_desc(sum(jellyseerr_requests_count) by (media_type))",
+          "expr": "sort_desc(jellyseerr_user_requests{email!=\"allocinoche-logs-aaaak3yo765bgnt7cfncsarxde@daw-ex.slack.com\"}) > 0 ",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{ media_type }}",
-          "queryType": "measurements",
+          "legendFormat": "{{ email }}",
           "refId": "A"
         }
       ],
-      "title": "Requests by Media Type",
-      "type": "stat"
+      "title": "Requests by user",
+      "transparent": true,
+      "type": "piechart"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "semi-dark-purple",
+            "fixedColor": "dark-green",
             "mode": "fixed"
           },
           "mappings": [],
@@ -210,15 +191,15 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 13,
+        "h": 5,
+        "w": 3,
         "x": 0,
         "y": 7
       },
-      "id": 19,
+      "id": 23,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
@@ -229,50 +210,156 @@
           "values": false
         },
         "text": {},
-        "textMode": "value_and_name"
+        "textMode": "value"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "10.0.2",
       "targets": [
         {
-          "exemplar": true,
+          "editorMode": "code",
+          "exemplar": false,
           "expr": "sum(jellyseerr_requests_count{request_status=\"Approved\"})",
-          "instant": true,
+          "format": "time_series",
+          "instant": false,
           "interval": "",
           "legendFormat": "Approved ",
+          "range": true,
           "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(jellyseerr_requests_count{request_status=\"Pending\"})",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Pending",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(jellyseerr_requests_count{request_status=\"Declined\"})",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Declined",
-          "refId": "C"
         }
       ],
-      "title": "Request Status",
+      "title": "Approved requests",
+      "transparent": true,
       "type": "stat"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "semi-dark-purple",
+            "fixedColor": "dark-orange",
             "mode": "fixed"
           },
           "mappings": [],
-          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 3,
+        "y": 7
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.0.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(jellyseerr_requests_count{request_status=\"Pending\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Approved ",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Pending requests",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 6,
+        "y": 7
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.0.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(jellyseerr_requests_count{request_status=\"Declined\"})",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Approved ",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Declined requests",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-green",
+            "mode": "fixed"
+          },
+          "mappings": [],
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -287,15 +374,15 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 13,
+        "h": 5,
+        "w": 3,
         "x": 0,
-        "y": 10
+        "y": 12
       },
-      "id": 21,
+      "id": 27,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
@@ -306,60 +393,42 @@
           "values": false
         },
         "text": {},
-        "textMode": "value_and_name"
+        "textMode": "value"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "10.0.2",
       "targets": [
         {
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(jellyseerr_requests_count{media_status=\"Available\"})",
           "hide": false,
-          "instant": true,
+          "instant": false,
           "interval": "",
           "legendFormat": "Available",
+          "range": true,
           "refId": "Available"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(jellyseerr_requests_count{media_status=\"Part-Available\"})",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Part-Available",
-          "refId": "Part Available"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(jellyseerr_requests_count{media_status=\"Processing\"})",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Processing",
-          "refId": "Processing"
         }
       ],
-      "title": "Request Availability",
+      "title": "Available requests",
+      "transparent": true,
       "type": "stat"
     },
     {
-      "datasource": null,
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "purple",
+            "fixedColor": "dark-orange",
             "mode": "fixed"
           },
           "mappings": [],
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -367,10 +436,130 @@
         "overrides": []
       },
       "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 3,
+        "y": 12
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.0.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(jellyseerr_requests_count{media_status=\"Processing\"})",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Available",
+          "range": true,
+          "refId": "Available"
+        }
+      ],
+      "title": "Processing requests",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 6,
+        "y": 12
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "10.0.2",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(jellyseerr_requests_count{media_status=\"Part-Available\"})",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Available",
+          "range": true,
+          "refId": "Available"
+        }
+      ],
+      "title": "Part-available requests",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
         "h": 10,
         "w": 5,
         "x": 0,
-        "y": 13
+        "y": 17
       },
       "id": 16,
       "options": {
@@ -380,6 +569,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -393,7 +583,11 @@
           "fields": "",
           "values": false
         },
-        "text": {}
+        "text": {},
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "7.5.5",
       "targets": [
@@ -406,32 +600,25 @@
           "refId": "A"
         }
       ],
-      "title": "Media Type Count",
+      "title": "Requests by media type",
       "transparent": true,
       "type": "piechart"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "purple",
             "mode": "fixed"
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
         },
         "overrides": [
           {
@@ -452,7 +639,7 @@
         "h": 10,
         "w": 5,
         "x": 5,
-        "y": 13
+        "y": 17
       },
       "id": 17,
       "options": {
@@ -462,6 +649,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "bottom",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -475,7 +663,11 @@
           "fields": "",
           "values": false
         },
-        "text": {}
+        "text": {},
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "7.5.5",
       "targets": [
@@ -488,180 +680,26 @@
           "refId": "A"
         }
       ],
-      "title": "Media Type Count",
-      "transparent": true,
-      "type": "piechart"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 23
-      },
-      "id": 14,
-      "panels": [],
-      "title": "Request Stats",
-      "type": "row"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "dark-purple",
-                "value": null
-              },
-              {
-                "color": "semi-dark-purple",
-                "value": 25
-              },
-              {
-                "color": "light-purple",
-                "value": 50
-              },
-              {
-                "color": "super-light-purple",
-                "value": 75
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 24
-      },
-      "id": 8,
-      "options": {
-        "displayMode": "gradient",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "text": {}
-      },
-      "pluginVersion": "7.5.5",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sort_desc(jellyseerr_user_requests) > 0 ",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{ email }}",
-          "refId": "A"
-        }
-      ],
-      "title": "Requests by User",
-      "transparent": true,
-      "type": "bargauge"
-    },
-    {
-      "datasource": null,
-      "description": "The genres requested",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "super-light-purple",
-                "value": null
-              },
-              {
-                "color": "light-purple",
-                "value": 60
-              },
-              {
-                "color": "semi-dark-purple",
-                "value": 70
-              },
-              {
-                "color": "dark-purple",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 24
-      },
-      "id": 4,
-      "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "values": [
-            "value"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {}
-      },
-      "pluginVersion": "7.5.5",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sort_desc(sum(jellyseerr_requests_count) by (genre))",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{genre}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Request Genres",
+      "title": "Media type count",
       "transparent": true,
       "type": "piechart"
     }
   ],
-  "schemaVersion": 27,
+  "refresh": "",
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Jellyseerr",
   "uid": "FcKC74CGk",
-  "version": 7
+  "version": 7,
+  "weekStart": ""
 }

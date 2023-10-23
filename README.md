@@ -10,10 +10,6 @@ docker run --rm -p 9850:9850 ghcr.io/opspotes/jellyseerr-exporter:latest \
   "--jellyseerr.apiKey=examplesecretapikey"
 ```
 
-### Dashboard
-
-![example-grafana-dashboard](./grafana/dashboard.png)
-
 ## Metrics
 
 Two main metric groups are exported: Requests and Users.
