@@ -7,7 +7,7 @@ Prometheus exporter for [Jellyseerr](https://github.com/Fallenbagel/jellyseerr).
 ```bash
 docker run --rm -p 9850:9850 ghcr.io/opspotes/jellyseerr-exporter:latest \
   "--jellyseerr.address=https://jellyseerr.example.com" \
-  "--jellyseerr.api-key=examplesecretapikey"
+  "--jellyseerr.apiKey=examplesecretapikey"
 ```
 
 ### Dashboard
@@ -47,7 +47,7 @@ User request counts of an Jellyseerr server are collected with the following lab
 | :------------------- | :---------------------------------------------------------------------: | :------ |
 | `log`                |                 Sets the logging level for the exporter                 | `fatal` |
 | `jellyseerr.address` |                   The URI of the Jellyseerr instance                    |         |
-| `jellyseerr.api-key` |              The admin API key of the Jellyseerr instance               |         |
+| `jellyseerr.apiKey`  |              The admin API key of the Jellyseerr instance               |         |
 | `jellyseerr.locale`  |                  The locale of the Jellyseerr instance                  | `en`    |
 | `fullData`           | Do not collect genre and company to reduce API requests and cardinality | `false` |
 

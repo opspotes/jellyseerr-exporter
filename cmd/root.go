@@ -84,7 +84,7 @@ func init() {
 
 	// jellyseerr setup
 	RootCmd.PersistentFlags().StringVar(&jellyseerrAddress, "jellyseerr.address", "", "Address at which Jellyseerr is hosted.")
-	RootCmd.PersistentFlags().StringVar(&jellyseerrAPIKey, "jellyseerr.api-key", "", "API key for admin access to the Jellyseerr instance.")
+	RootCmd.PersistentFlags().StringVar(&jellyseerrAPIKey, "jellyseerr.apiKey", "", "API key for admin access to the Jellyseerr instance.")
 	RootCmd.PersistentFlags().StringVar(&jellyseerrAPILocale, "jellyseerr.locale", "en", "Locale of the Jellyseerr instance.")
 	RootCmd.PersistentFlags().BoolVar(&fullData, "fullData", false, "Reduce scraping and cardinality on requests count metric.")
 	RootCmd.MarkPersistentFlagRequired("jellyseerr.address")
